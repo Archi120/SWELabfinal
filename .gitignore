@@ -1,0 +1,27 @@
+# Ignore Visual Studio files
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Ignore Windows system files
+Thumbs.db
+Desktop.ini
+
+# Ignore log files
+*.log
+
+# Ignore compiled files
+*.dll
+*.exe
+*.obj
+*.pch
+*.lib
+*.suo
+*.ilk
+*.idb
+*.pdb
+*.app
+*.xcodeproj
