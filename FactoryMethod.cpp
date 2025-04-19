@@ -4,7 +4,6 @@
 
 using namespace std;
 
-// Base Product class
 class Vehicle
 {
 public:
@@ -12,7 +11,6 @@ public:
     virtual void drive() const = 0;
 };
 
-// Concrete Products
 class Car : public Vehicle
 {
 public:
@@ -40,7 +38,6 @@ public:
     }
 };
 
-// Factory class
 class VehicleFactory
 {
 public:
@@ -62,7 +59,7 @@ public:
         case TRUCK:
             return make_unique<Truck>();
         default:
-            throw invalid_argument("Unknown vehicle type");
+            throw invalid_argument("Unknown");
         }
     }
 };
