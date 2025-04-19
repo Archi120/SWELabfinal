@@ -3,7 +3,6 @@
 #include <string>
 using namespace std;
 
-// Base Product class
 class Vehicle
 {
 public:
@@ -11,7 +10,6 @@ public:
     virtual void drive() const = 0;
 };
 
-// Concrete Products
 class Car : public Vehicle
 {
 public:
@@ -39,7 +37,7 @@ public:
     }
 };
 
-// Factory class - using raw pointers instead of unique_ptr
+
 class VehicleFactory
 {
 public:
@@ -66,34 +64,31 @@ public:
     }
 };
 
-// Test fixture
 class VehicleFactoryTest : public ::testing::Test {
 protected:
     VehicleFactory factory;
 
     void TearDown() override {
-        // Clean up any resources if needed
+   
     }
 };
 
-// Test creating a Car
 TEST_F(VehicleFactoryTest, CreateCar) {
-    // Redirect cout to capture output
+   
     testing::internal::CaptureStdout();
 
     Vehicle* car = factory.createVehicle(VehicleFactory::CAR);
     car->drive();
 
-    // Get the output
+
     string output = testing::internal::GetCapturedStdout();
 
-    // Check the output contains the expected message
     EXPECT_NE(output.find("I am driving a car"), string::npos);
 
     delete car;
 }
 
-// Test creating a Bike
+
 TEST_F(VehicleFactoryTest, CreateBike) {
     testing::internal::CaptureStdout();
 
@@ -105,8 +100,6 @@ TEST_F(VehicleFactoryTest, CreateBike) {
 
     delete bike;
 }
-
-// Test creating a Truck
 TEST_F(VehicleFactoryTest, CreateTruck) {
     testing::internal::CaptureStdout();
 
@@ -119,13 +112,11 @@ TEST_F(VehicleFactoryTest, CreateTruck) {
     delete truck;
 }
 
-// Test all vehicle types
 TEST_F(VehicleFactoryTest, CreateAllVehicles) {
     Vehicle* car = factory.createVehicle(VehicleFactory::CAR);
     Vehicle* bike = factory.createVehicle(VehicleFactory::BIKE);
     Vehicle* truck = factory.createVehicle(VehicleFactory::TRUCK);
 
-    // Verify each object is of the correct type using dynamic_cast
     EXPECT_NE(dynamic_cast<Car*>(car), nullptr);
     EXPECT_NE(dynamic_cast<Bike*>(bike), nullptr);
     EXPECT_NE(dynamic_cast<Truck*>(truck), nullptr);
@@ -135,9 +126,8 @@ TEST_F(VehicleFactoryTest, CreateAllVehicles) {
     delete truck;
 }
 
-// Test invalid vehicle type
+
 TEST_F(VehicleFactoryTest, InvalidVehicleType) {
-    // This test verifies that an exception is thrown for an invalid type
-    // Note: This requires casting to an int since we can't directly pass an invalid enum value
+   
     EXPECT_THROW(factory.createVehicle(static_cast<VehicleFactory::VehicleType>(999)), invalid_argument);
 }
